@@ -36,7 +36,7 @@ class ResearchAgent(Agent):
         outline_tool,
         citation_tool,
         summarize_tool,
-        aurora_db_citation,
+        faiss_name_citation,
         config=[],
         system_message: Optional[str] = None,
         use_outline=True,
@@ -67,7 +67,7 @@ class ResearchAgent(Agent):
         self.use_context_planning = use_context_planning
         self.use_outline = use_outline
         self.agent_name = agent_name
-        self.aurora_db_citation = aurora_db_citation
+        self.faiss_name_citation = faiss_name_citation
         self.config = config
         self.save_log_path = save_log_path
         self.use_context_planning = use_context_planning
@@ -77,17 +77,17 @@ class ResearchAgent(Agent):
     async def run_search_summary(self, query):
         responses = []
         url_dict = {}
-        results = await self.retriever(query, top_k=3)
+        results = self.retriever.search(query, top_k=3)
         length_limit = 0
-        for doc in results["documents"]:
-            res = await self.summarize(doc["content_se"], query)
+        for doc in results:
+            res = await self.summarize(doc["content"], query)
             # Add reference to avoid hallucination
-            data = {"summary": res, "url": doc["meta"]["url"], "name": doc["title"]}
+            data = {"summary": res, "url": doc["url"], "name": doc["title"]}
             length_limit += len(res)
             if length_limit < SUMMARIZE_MAX_LENGTH:
                 responses.append(data)
                 key = doc["title"]
-                value = doc["meta"]["url"]
+                value = doc["url"]
                 url_dict[key] = value
             else:
                 print(f"summary size exceed {SUMMARIZE_MAX_LENGTH}")
@@ -112,8 +112,8 @@ class ResearchAgent(Agent):
         self.save_log()
         if self.use_context_planning:
             sub_queries = []
-            res = await self.retriever_abstract(query, top_k=3)
-            context = [item["content_se"] for item in res["documents"]]
+            res = self.retriever_abstract.search(query, top_k=3)
+            context = [item["content"] for item in res]
             context_content = ""
             for index, item in enumerate(context):
                 sub_queries_item = await self.task_planning(
@@ -147,32 +147,32 @@ class ResearchAgent(Agent):
         self.config.append(("任务分解", "\n".join(sub_queries)))
         self.save_log()
         # Run Sub-Queries
-        meta_data = OrderedDict()
-        # research_summary = ""
-        paragraphs_item = []
-        # summary_list=[]
-        for sub_query in sub_queries:
-            research_result, url_dict = await self.run_search_summary(sub_query)
-            meta_data.update(url_dict)
-            paragraphs_item.extend(research_result)
-            self.config.append((sub_query, f"{research_result}\n\n"))
-            self.save_log()
-        paragraphs = []
-        for item in paragraphs_item:
-            if item not in paragraphs:
-                paragraphs.append(item)
-        research_summary = "\n\n".join([str(i) for i in paragraphs]).replace(". ", ".")
-        outline = None
-        # Generate Outline
-        if self.use_outline:
-            outline = await self.outline(sub_queries, query)
-            self.config.append(("报告大纲", outline))
-            self.save_log()
-        else:
-            outline = None
-        # Conduct Research
         while True:
             try:
+                meta_data = OrderedDict()
+                # research_summary = ""
+                paragraphs_item = []
+                # summary_list=[]
+                for sub_query in sub_queries:
+                    research_result, url_dict = await self.run_search_summary(sub_query)
+                    meta_data.update(url_dict)
+                    paragraphs_item.extend(research_result)
+                    self.config.append((sub_query, f"{research_result}\n\n"))
+                    self.save_log()
+                paragraphs = []
+                for item in paragraphs_item:
+                    if item not in paragraphs:
+                        paragraphs.append(item)
+                research_summary = "\n\n".join([str(i) for i in paragraphs]).replace(". ", ".")
+                outline = None
+                # Generate Outline
+                if self.use_outline:
+                    outline = await self.outline(sub_queries, query)
+                    self.config.append(("报告大纲", outline))
+                    self.save_log()
+                else:
+                    outline = None
+                # Conduct Research
                 report, url_index = await self.report_writing(
                     question=query,
                     research_summary=research_summary,
@@ -189,9 +189,9 @@ class ResearchAgent(Agent):
         self.config.append(("草稿", report))
         self.save_log()
         # Generate Citations
-        add_citation(paragraphs, self.aurora_db_citation)
+        citation_search = add_citation(paragraphs, self.faiss_name_citation)
         final_report, path = await self.citation(
-            report, url_index, self.agent_name, self.report_type, self.dir_path, self.aurora_db_citation
+            report, url_index, self.agent_name, self.report_type, self.dir_path, citation_search
         )
         self.config.append(("草稿加引用", report))
         self.save_log()

@@ -35,7 +35,12 @@ class ReviserActorAgent(Agent):
         ]
         while True:
             try:
-                report = erniebot_chat(messages=messages, system=self.system_message)
+                if len(messages[0]["content"]) > 4800:
+                    report = erniebot_chat(
+                        messages=messages, model="ernie-bot-8k", system=self.system_message
+                    )
+                else:
+                    report = erniebot_chat(messages=messages, system=self.system_message)
                 self.config.append(("修订后的报告", report))
                 self.save_log()
                 return report
