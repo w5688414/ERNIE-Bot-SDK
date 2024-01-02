@@ -279,8 +279,4 @@ class CustomAgent(Agent):
 
         # 其它处理逻辑
         ...
-<<<<<<< Updated upstream
 ```
-=======
-```
->>>>>>> Stashed changes

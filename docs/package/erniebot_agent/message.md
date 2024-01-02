@@ -10,8 +10,4 @@
         - SystemMessage
         - HumanMessage
         - AIMessage
-<<<<<<< Updated upstream
         - FunctionMessage
-=======
-        - FunctionMessage
->>>>>>> Stashed changes
