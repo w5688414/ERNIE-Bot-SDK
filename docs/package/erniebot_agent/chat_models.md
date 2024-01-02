@@ -11,8 +11,4 @@
     options:
         summary: true
         members:
-<<<<<<< Updated upstream
         - ERNIEBot
-=======
-        - ERNIEBot
->>>>>>> Stashed changes

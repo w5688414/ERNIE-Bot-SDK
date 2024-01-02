@@ -9,8 +9,4 @@
         - Memory
         - WholeMemory
         - LimitTokensMemory
-<<<<<<< Updated upstream
         - SlidingWindowMemory
-=======
-        - SlidingWindowMemory
->>>>>>> Stashed changes

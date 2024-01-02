@@ -167,8 +167,4 @@ async def demo():
     print(ai_message.content)
 
 asyncio.run(demo())
-<<<<<<< Updated upstream
 ```
-=======
-```
->>>>>>> Stashed changes

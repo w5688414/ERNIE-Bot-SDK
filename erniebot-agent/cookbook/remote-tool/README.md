@@ -27,8 +27,4 @@ demo文件结构如下所示：
 
 
   * 第三步：上传插件配置文件
-<<<<<<< Updated upstream
     ![开发.png](https://bce.bdstatic.com/doc/eb118-guidbook/EB118-developer/%E5%BC%80%E5%8F%91_2519f45.png)
-=======
-    ![开发.png](https://bce.bdstatic.com/doc/eb118-guidbook/EB118-developer/%E5%BC%80%E5%8F%91_2519f45.png)
->>>>>>> Stashed changes

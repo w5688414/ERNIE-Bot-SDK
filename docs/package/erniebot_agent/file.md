@@ -59,8 +59,4 @@
         show_signature_annotations: true
         line_length: 60
         members:
-<<<<<<< Updated upstream
         - AIStudioFileClient
-=======
-        - AIStudioFileClient
->>>>>>> Stashed changes

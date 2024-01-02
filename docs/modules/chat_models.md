@@ -175,8 +175,4 @@ async def demo():
         messages.append(AIMessage(result))
 
 asyncio.run(demo())
-<<<<<<< Updated upstream
 ```
-=======
-```
->>>>>>> Stashed changes

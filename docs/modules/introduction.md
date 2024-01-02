@@ -28,8 +28,4 @@ os.environ["EB_AGENT_ACCESS_TOKEN"] = "your access token"
 
 ## 智能体Agent
 
-<<<<<<< Updated upstream
 TODO
-=======
-TODO
->>>>>>> Stashed changes
