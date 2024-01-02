@@ -109,7 +109,7 @@
 from erniebot_agent.file import GlobalFileManagerHandler
 
 async def demo_function():
-    file_manager = await GlobalFileManagerHandler().get()  
+    file_manager = await GlobalFileManagerHandler().get()
 ```
 2. 通过 `GlobalFileManagerHandler`创建 `File`
 

@@ -97,7 +97,7 @@ print(memory.get_messages())
 >>> []
 ```
 
-### 4.2 LimitTokensMemory   
+### 4.2 LimitTokensMemory
 `LimitTokensMemory(max_token_limit)`是token数量限制截断记忆，在memory中存储固定数量的token。其中`max_token_limit`表示memory中最多存储的消息的token数量，超过这个限制后，从头开始对消息进行删除。
 
 ```python
@@ -111,7 +111,7 @@ print("裁剪后的消息为：", memory.get_messages())
 裁剪后的消息为： [<AIMessage role: 'assistant', content: '单词中目前有单词：meticulous', token_count: 9>, <HumanMessage role: 'user', content: '我想对单词本中的单词全部打印出对应的中文含义用于记忆', token_count: 26>, <AIMessage role: 'assistant', content: '好的，单词本中包括：meticulous的意思是挑剔的，关注细节的', token_count: 21>]
 ```
 
-### 4.3 SlidingWindowMemory   
+### 4.3 SlidingWindowMemory
 `SlidingWindowMemory(max_round, retained_round)`是滑动窗口截断记忆，在memory中存储固定轮数的消息。其中`max_round`表示memory中消息最多存储的轮数，`retained_round`表示在memory中会保留的初始消息的轮数，用于初始消息比较重要的场景。下面两个例子我们分别展示SlidingWindowMemory保留一轮消息，和同时保留首轮消息的效果。
 
 ```python

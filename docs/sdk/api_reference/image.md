@@ -60,7 +60,7 @@ ernie.api_type = "yinian"
           "sub_task_progress": 1,
           "sub_task_error_code": 0,
           "final_image_list": [
-           {  
+           {
               "img_url": "http://aigc-t2p.bj.bcebos.com/artist-long/_final.png?02d252c87b91ed3b2f6327db0",
               "width": 512,
               "height": 512,

@@ -14,9 +14,14 @@ from pydantic import Field
 from erniebot_agent.extensions.langchain.llms import ErnieBot
 from erniebot_agent.tools.base import Tool
 from erniebot_agent.tools.schema import ToolParameterView
+<<<<<<< Updated upstream:erniebot-agent/applications/erniebot_researcher/tools/summarization_tool.py
 
 from .utils import access_token
+=======
+>>>>>>> Stashed changes:erniebot-agent/applications/erniebot_researcher/tools/summarization_tool.py
 
+import os
+access_token=os.environ.get('EB_AGENT_ACCESS_TOKEN',None)
 TOKEN_MAX_LENGTH = 4800
 
 

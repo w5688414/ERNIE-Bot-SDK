@@ -1,5 +1,5 @@
 [flake8]
-ignore = 
+ignore =
     # Whitespace before ',', ';', or ':', as it is not compatible with black.
     E203,
     # Module level import not at top of file.

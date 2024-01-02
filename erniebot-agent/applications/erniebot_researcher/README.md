@@ -1,4 +1,4 @@
-# ERNIE Researcher 
+# ERNIE Researcher
 
 ERNIE Researcher是一个自主智能体（Autonomous Agent），旨在对各种任务进行全面的在线研究。
 

@@ -4,7 +4,7 @@ from typing import Optional
 from tools.prompt_utils import EB_EDIT_TEMPLATE, eb_functions
 from tools.utils import erniebot_chat, json_correct, write_to_json
 
-from erniebot_agent.agents.base import Agent
+from erniebot_agent.agents.agent import Agent
 from erniebot_agent.prompt import PromptTemplate
 
 
@@ -14,7 +14,7 @@ class EditorActorAgent(Agent):
     def __init__(
         self,
         name: str,
-        llm: str = "ernie-bot-4",
+        llm: str = "ernie-4.0",
         system_message: Optional[str] = None,
         config: list = [],
         save_log_path=None,
@@ -26,7 +26,7 @@ class EditorActorAgent(Agent):
         self.save_log_path = save_log_path
         self.prompt = PromptTemplate(" 草稿为:\n\n{{report}}", input_variables=["report"])
 
-    async def _async_run(self, report):
+    async def _run(self, report):
         messages = [
             {
                 "role": "user",
@@ -35,9 +35,17 @@ class EditorActorAgent(Agent):
         ]
         while True:
             try:
-                suggestions = erniebot_chat(
-                    messages=messages, functions=eb_functions, model=self.model, system=self.system_message
-                )
+                if len(messages[0]["content"]) > 4800:
+                    suggestions = erniebot_chat(
+                        messages=messages,
+                        functions=eb_functions,
+                        model="ernie-bot-8k",
+                        system=self.system_message,
+                    )
+                else:
+                    suggestions = erniebot_chat(
+                        messages=messages, functions=eb_functions, system=self.system_message
+                    )
                 start_idx = suggestions.index("{")
                 end_idx = suggestions.rindex("}")
                 suggestions = suggestions[start_idx : end_idx + 1]

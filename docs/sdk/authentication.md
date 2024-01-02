@@ -17,7 +17,7 @@ ERNIE Bot支持多个后端平台来调用文心大模型（如下表格），�
 在[AI Studio星河社区](https://aistudio.baidu.com/index)注册并登录账号，可以在个人中心的[访问令牌页面](https://aistudio.baidu.com/usercenter/token)获取access token。
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/52520497/268609784-8476269e-5cdb-4dfc-9841-983b5a766226.png" width="800" />  
+<img src="https://user-images.githubusercontent.com/52520497/268609784-8476269e-5cdb-4dfc-9841-983b5a766226.png" width="800" />
 </div>
 
 注意事项：
@@ -77,7 +77,7 @@ AI Studio后端可以使用access token进行鉴权，支持如下三种方法�
 5. （非必需）参考[access token获取教程](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Ilkkrb0i5)，使用API key和secret key获取access token。
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/52520497/264009567-46f88a38-df70-4a79-affb-ddbf797855b1.jpeg" width="800" />  
+<img src="https://user-images.githubusercontent.com/52520497/264009567-46f88a38-df70-4a79-affb-ddbf797855b1.jpeg" width="800" />
 </div>
 
 注意事项：
@@ -130,13 +130,13 @@ AI Studio后端可以使用access token进行鉴权，支持如下三种方法�
 2. 进入百度云 - 智能创作平台 - [应用页面](https://console.bce.baidu.com/ai/#/ai/intelligentwriting/app/list)，创建应用，可以拿到API key和secret key（如下图）。
 
     <div align="center">
-    <img src="https://user-images.githubusercontent.com/52520497/264009612-17658684-c066-44e5-8814-178214aa8155.jpeg" width="800" />  
+    <img src="https://user-images.githubusercontent.com/52520497/264009612-17658684-c066-44e5-8814-178214aa8155.jpeg" width="800" />
     </div>
 
 3. 进入百度云 - 智能创作平台 - [概览页面](https://console.bce.baidu.com/ai/#/ai/intelligentwriting/overview/index)，在服务列表中找到AI作画-高级版服务并开通付费（如下图）。
 
     <div align="center">
-    <img src="https://github.com/PaddlePaddle/PaddleSeg/assets/52520497/7c855314-8332-47ad-a444-a08dd37ec32f" width="800" />  
+    <img src="https://github.com/PaddlePaddle/PaddleSeg/assets/52520497/7c855314-8332-47ad-a444-a08dd37ec32f" width="800" />
     </div>
 
 4. （非必需）参考[access token获取教程](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Ilkkrb0i5)，使用API key和secret key获取access token。

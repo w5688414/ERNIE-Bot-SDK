@@ -167,7 +167,6 @@ Function agent是一种由大语言模型的函数调用能力驱动的agent。�
     print(response.steps[0].input_files)
     # 打印结果可能如下：
     # [<LocalFile id: 'file-local-74aaf9e4-a4c2-11ee-b0a2-fa2020087eb4', filename: 'example.png', byte_size: 17663, created_at: '2023-12-27 22:15:58', purpose: 'assistants', metadata: {}, path: PosixPath('example.png')>]
-    
     # 尝试调用语音合成工具，该工具的输出中包含文件
     response = await agent.run("请使用将刚才识别出的文字转换为语音。")
 

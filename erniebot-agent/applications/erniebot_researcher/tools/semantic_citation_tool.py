@@ -35,7 +35,7 @@ class SemanticCitationTool(Tool):
         agent_name: str,
         report_type: str,
         dir_path: str,
-        aurora_db,
+        citation_search,
         theta_min=0.4,
         theta_max=0.95,
         **kwargs,
@@ -56,16 +56,17 @@ class SemanticCitationTool(Tool):
                     if not sentence:
                         continue
                     try:
-                        query_result = aurora_db.search(query=sentence, top_k=1, filters=None)
+                        query_result = citation_search.search(query=sentence, top_k=1, filters=None)
                     except Exception as e:
                         output_sent.append(sentence)
                         print(e)
                         continue
-                    source = query_result[0]["meta"]
+                    source = query_result[0]
                     if len(sentence.strip()) > 0:
                         if not self.is_punctuation(sentence[-1]):
                             sentence += "。"
-                        if query_result[0]["score"] >= theta_min and query_result[0]["score"] <= theta_max:
+                        print(source["score"])
+                        if source["score"] >= theta_min and source["score"] <= theta_max:
                             sentence += (
                                 f"<sup>[\\[{url_index[source['url']]['index']}\\]]({source['url']})</sup>"
                             )
