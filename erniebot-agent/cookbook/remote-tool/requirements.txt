@@ -1,6 +1,2 @@
 flask[async]
-<<<<<<< Updated upstream
 flask_cors
-=======
-flask_cors
->>>>>>> Stashed changes

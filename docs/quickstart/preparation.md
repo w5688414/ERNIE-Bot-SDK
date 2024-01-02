@@ -56,8 +56,4 @@ export EB_AGENT_ACCESS_TOKEN="<your access token>"
 ```python
 import os
 os.environ["EB_AGENT_ACCESS_TOKEN"] = "<your access token>"
-<<<<<<< Updated upstream
 ```
-=======
-```
->>>>>>> Stashed changes
