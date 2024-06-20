@@ -75,7 +75,6 @@ class ResearchAgent(JsonUtil):
 
     async def run_search_summary(self, query: str):
         responses = []
-        url_dict = {}
         results = self.retriever_fulltext_db.search(query, top_k=3)
         length_limit = 0
         await self._callback_manager.on_tool_start(agent=self, tool=self.summarize_tool, input_args=query)
@@ -86,14 +85,11 @@ class ResearchAgent(JsonUtil):
             length_limit += len(res)
             if length_limit < SUMMARIZE_MAX_LENGTH:
                 responses.append(data)
-                key = doc["title"]
-                value = doc["url"]
-                url_dict[key] = value
             else:
                 logger.warning(f"summary size exceed {SUMMARIZE_MAX_LENGTH}")
                 break
         await self._callback_manager.on_tool_end(self, tool=self.summarize_tool, response=responses)
-        return responses, url_dict
+        return responses
 
     async def run(self, query: str):
         """
@@ -157,7 +153,7 @@ class ResearchAgent(JsonUtil):
         # Run Sub-Queries
         paragraphs_item = []
         for sub_query in sub_queries:
-            research_result, url_dict = await self.run_search_summary(sub_query)
+            research_result = await self.run_search_summary(sub_query)
             paragraphs_item.extend(research_result)
 
         paragraphs = []
@@ -165,7 +161,7 @@ class ResearchAgent(JsonUtil):
             if item not in paragraphs:
                 paragraphs.append(item)
         # 1. 摘要 ==> 1.摘要 for avoiding erniebot request error
-        research_summary = "\n\n".join([str(i) for i in paragraphs]).replace(". ", ".")
+        research_summary = "\n\n".join([str(i["summary"]) for i in paragraphs]).replace(". ", ".")
 
         await self._callback_manager.on_tool_start(
             agent=self, tool=self.outline_tool, input_args=sub_queries
